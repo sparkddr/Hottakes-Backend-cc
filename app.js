@@ -1,9 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
+const dotenv = require("dotenv");
+dotenv.config();
+
+const MY_APP_SECRET = process.env.APP_SECRET;
+
 const app = express () ;
 
-mongoose.connect('mongodb+srv://admin:iamhot@hottest0.jnpzq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://admin:${MY_APP_SECRET}@hottest0.jnpzq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -18,7 +23,7 @@ app.use((req, res, next) => {
   });
 
 app.use((req,res)=>{
-    res.json({message : "Votre requête blablabla"})
+    res.send("Votre requête blablabla")
 })
 
 module.exports = app ;
