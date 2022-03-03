@@ -4,9 +4,12 @@ const mongoose = require('mongoose')
 const dotenv = require("dotenv");
 dotenv.config();
 
+const userRoutes = require('./routes/user')
+
 const MY_APP_SECRET = process.env.APP_SECRET;
 
 const app = express () ;
+app.use(express.json())
 
 mongoose.connect(`mongodb+srv://admin:${MY_APP_SECRET}@hottest0.jnpzq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
@@ -25,5 +28,7 @@ app.use((req, res, next) => {
 app.use((req,res)=>{
     res.send("Votre requête blablabla")
 })
+
+app.use('/api/auth', userRoutes);
 
 module.exports = app ;
