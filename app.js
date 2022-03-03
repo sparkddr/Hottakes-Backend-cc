@@ -25,9 +25,6 @@ app.use((req, res, next) => {
     next();
   });
 
-app.use((req,res)=>{
-    res.send("Votre requête blablabla")
-})
 
 app.use('/api/auth', userRoutes);
 
