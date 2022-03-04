@@ -9,6 +9,8 @@ dotenv.config();
 const userRoutes = require('./routes/user')
 const saucesRoutes = require('./routes/sauces')
 
+const path = require('path');
+
 const MY_APP_SECRET = process.env.APP_SECRET;
 
 const app = express () ;
@@ -28,7 +30,7 @@ app.use((req, res, next) => {
     next();
   });
 
-
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', saucesRoutes)
 

@@ -10,3 +10,9 @@ exports.createSauce = (req,res,next)=>{
       .then(()=> res.status(201).json( {message : 'Objet enregistré'}))
       .catch((error)=> res.status(400).json({error}))
 }
+
+exports.getSauces = (req,res,next)=>{
+    Sauce.find()
+        .then((sauces)=> res.status(200).json(sauces))
+        .catch((error)=> res.status(400).json({error}))
+}
