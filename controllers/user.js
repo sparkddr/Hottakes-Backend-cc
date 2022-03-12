@@ -1,11 +1,22 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const passwordValidator = require('password-validator');
+const schemaPassword = new passwordValidator();
+
+schemaPassword.is().min(8)                                    
+.is().max(100)                                  
+.has().uppercase()                              
+.has().lowercase()                             
+.has().digits(1)                               
+.has().not().spaces() ; 
+
 const User = require("../models/user");
 
 
 exports.signup = (req, res, next) => {
-  bcrypt
+  if (schemaPassword.validate(req.body.password)){
+    bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
       const user = new User({
@@ -18,6 +29,11 @@ exports.signup = (req, res, next) => {
         .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
+  }else{
+    let response = schemaPassword.validate(req.body.password, {details:true});
+    return res.status(400).send(response)
+  }
+  
 };
 
 exports.login = (req, res, next) => {
