@@ -1,10 +1,9 @@
 const express = require('express')
+const helmet = require('helmet')
 const mongoose = require('mongoose')
 
 const dotenv = require("dotenv");
 dotenv.config();
-
-
 
 const userRoutes = require('./routes/user')
 const saucesRoutes = require('./routes/sauces')
@@ -15,6 +14,7 @@ const MY_APP_SECRET = process.env.APP_SECRET;
 
 const app = express () ;
 app.use(express.json())
+app.use(helmet());
 
 mongoose.connect(`mongodb+srv://admin:${MY_APP_SECRET}@hottest0.jnpzq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
