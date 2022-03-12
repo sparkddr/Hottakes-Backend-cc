@@ -1,6 +1,7 @@
 const express = require('express')
 const helmet = require('helmet')
 const mongoose = require('mongoose')
+const mongoSanitize = require('express-mongo-sanitize');
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -29,7 +30,9 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
-app.use(helmet());
+/*app.use(helmet());*/
+
+app.use(mongoSanitize());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
