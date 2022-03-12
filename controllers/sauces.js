@@ -2,6 +2,8 @@ const Sauce = require("../models/sauces");
 const fs = require("fs");
 const { Console } = require("console");
 
+
+
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
   const sauce = new Sauce({
@@ -140,7 +142,6 @@ exports.likeSauce = (req, res, next) => {
         likeArray.splice(likeIndex, 1);
         sauceLike--;
       }
-      console.log(sauceLike);
       Sauce.updateOne(
         { _id: req.params.id },
         { usersDisliked: dislikeArray, usersLiked: likeArray, likes: sauceLike, dislikes : sauceDislike }
