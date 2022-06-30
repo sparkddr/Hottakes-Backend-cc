@@ -1,6 +1,6 @@
 const Sauce = require("../models/sauces");
 const fs = require("fs");
-const { Console } = require("console");
+
 
 
 
@@ -149,6 +149,7 @@ exports.likeSauce = (req, res, next) => {
         .then(() => res.status(200).json({ message: "Like/Dislike retiré" }))
         .catch((error) => res.status(400).json({ error }));
     }
-  });
+  })
+  .catch((error) => res.status(400).json({ error }));;
 };
 

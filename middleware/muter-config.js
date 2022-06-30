@@ -4,7 +4,17 @@ const MIME_TYPES = {
     'image/jpeg': 'jpg',
     'image/png': 'png'
   };
-  const storage = multer.diskStorage({
+const fs = require('fs')
+const path = require ('path')
+
+fs.mkdir( path.join(__dirname, '/../images'), (err)=>{
+  if (err){
+    return console.log(err)
+  }
+  console.log('Directory created successfully!') 
+})
+
+const storage = multer.diskStorage({
     destination: (req, file, callback) => {
       callback(null, 'images');
     },
@@ -15,5 +25,6 @@ const MIME_TYPES = {
       callback(null, nameTwo + Date.now() + '.' + extension);
     }
   });
+
   module.exports = multer({storage: storage}).single('image');
   
